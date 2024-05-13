@@ -68,7 +68,7 @@ public class App {
     private void handleMenuOption(int option, Scanner scanner) {
         switch (option) {
             case MainMenuOption.ADD_ORDER -> addOrder();
-            case MainMenuOption.MARK_DELIVERED -> System.out.println("ENTREGADO!");
+            case MainMenuOption.MARK_DELIVERED -> markDelivered();
             case MainMenuOption.LIST_PENDINGS -> listPendingOrder();
             case MainMenuOption.LIST_DELIVERS -> System.out.println("ENTREGADOS!");
             case MainMenuOption.EXIT -> System.out.println("Goodbye!");
@@ -124,11 +124,52 @@ public class App {
         System.out.println("Order created");
     }
 
-    private void listPendingOrder() {
+    private boolean listPendingOrder() {
+        if (orders.stream().allMatch(Order::getDelivered)) {
+            System.out.println("There are no pending orders to display.");
+            return false;
+        }
+
         orders.forEach(order -> {
-            if(!order.getDelivered()){
+            if (!order.getDelivered())
                 System.out.println(order);
-            }
+
         });
+        return true;
     }
+
+    private void markDelivered() {
+        outerLoop:
+
+        while (true) {
+            if (!listPendingOrder()) {
+                break outerLoop;
+            }
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please choose the order number to mark as delivered:");
+
+            int orderNumber;
+
+            try {
+                orderNumber = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid order number.");
+                continue;
+            }
+
+            for (Order order : orders) {
+                if (order.getID() == orderNumber) {
+                    order.setDelivered(true);
+                    System.out.println("Order marked as delivered.");
+                    scanner.nextLine();
+                    return;
+                }
+            }
+
+            System.out.println("Order not found: " + orderNumber);
+            scanner.nextLine();
+        }
+    }
+
 }

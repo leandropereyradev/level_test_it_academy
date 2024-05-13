@@ -1,12 +1,12 @@
 import java.util.List;
 
 public class Order {
-    private int ID = 0;
+    private int ID;
     private Customer customer;
     private List<Product> products;
     private Deliveryman deliveryman;
-    private boolean delivered = false;
-    private double total_price = 0;
+    private boolean delivered;
+    private double total_price;
 
     public Order(Customer customer, List<Product> products, Deliveryman deliveryman) {
         this.ID ++;
@@ -16,11 +16,15 @@ public class Order {
     }
 
     public boolean getDelivered() {
-        return this.delivered;
+        return delivered;
     }
 
     public void setDelivered(boolean delivered) {
         this.delivered = delivered;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     @Override
