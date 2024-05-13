@@ -4,31 +4,31 @@ public enum ProductType {
     KEBAB("Kebab", 3, 4.5, ""),
     HAMBURGUER("Hamburguesa", 4, 8.9, "");
 
-    private final String type;
-    private final int index;
-    private final double price;
-    private final String gift;
+    private final String TYPE;
+    private final int INDEX;
+    private final double PRICE;
+    private final String GIFT;
 
     ProductType(String type, int index, double price, String gift) {
-        this.type = type;
-        this.index = index;
-        this.price = price;
-        this.gift = gift;
+        this.TYPE = type;
+        this.INDEX = index;
+        this.PRICE = price;
+        this.GIFT = gift;
     }
 
     public String getType() {
-        return type;
+        return TYPE;
     }
 
     public int getIndex() {
-        return index;
+        return INDEX;
     }
 
     public double getPrice() {
-        return price;
+        return PRICE;
     }
 
     public String getGift() {
-        return gift;
+        return GIFT;
     }
 }

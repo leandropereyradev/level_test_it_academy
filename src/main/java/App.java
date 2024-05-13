@@ -3,19 +3,25 @@ import menu.MainMenuOption;
 import java.util.*;
 
 public class App {
-    private List<Pedido> orders = new ArrayList<>();
-    private static final List<Producto> PRODUCTOS = new ArrayList<>();
-    private static final List<Repartidor> REPARTIDORES = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
+    private static final List<Product> PRODUCTS = new ArrayList<>();
+    private static final List<Deliveryman> DELIVERYMEN = new ArrayList<>();
 
     static {
-        PRODUCTOS.add(new Producto(ProductType.BURRITO.getType(), ProductType.BURRITO.getPrice(), ProductType.BURRITO.getGift()));
-        PRODUCTOS.add(new Producto(ProductType.KEBAB.getType(), ProductType.KEBAB.getPrice(), ProductType.KEBAB.getGift()));
-        PRODUCTOS.add(new Producto(ProductType.PIZZA.getType(), ProductType.PIZZA.getPrice(), ProductType.PIZZA.getGift()));
-        PRODUCTOS.add(new Producto(ProductType.HAMBURGUER.getType(), ProductType.HAMBURGUER.getPrice(), ProductType.HAMBURGUER.getGift()));
+        for (ProductType product : ProductType.values()) {
 
-        REPARTIDORES.add(new Repartidor("Repartidor 1"));
-        REPARTIDORES.add(new Repartidor("Repartidor 2"));
-        REPARTIDORES.add(new Repartidor("Repartidor 3"));
+            PRODUCTS.add(new Product(
+                    product.getIndex(),
+                    product.getType(),
+                    product.getPrice(),
+                    product.getGift()
+            ));
+
+        }
+
+        DELIVERYMEN.add(new Deliveryman("Delivery man 1"));
+        DELIVERYMEN.add(new Deliveryman("Delivery man 2"));
+        DELIVERYMEN.add(new Deliveryman("Delivery man 3"));
     }
 
     public void start() {
@@ -52,7 +58,7 @@ public class App {
     }
 
     private void printProductOptions() {
-        PRODUCTOS.forEach(product -> {
+        PRODUCTS.forEach(product -> {
             System.out.println(product.getID() + ". " + product.getProduct());
         });
 
@@ -71,9 +77,15 @@ public class App {
     }
 
     private void addOrder() {
-        List<Producto> selectedProducts = new ArrayList<>();
-
         Scanner scanner = new Scanner(System.in);
+        boolean addOther;
+
+        if (DELIVERYMEN.stream().noneMatch(Deliveryman::isAvailable)) {
+            System.out.println("There are no delivery drivers available.");
+            return;
+        }
+
+        List<Product> selectedProducts = new ArrayList<>();
 
         System.out.println("Customer name: ");
         String customer_name = scanner.nextLine();
@@ -81,24 +93,42 @@ public class App {
         System.out.println("Customer address: ");
         String customer_address = scanner.nextLine();
 
-        Cliente cliente = new Cliente(customer_name, customer_address);
-
-        System.out.println("Select a product: ");
-        printProductOptions();
-        int product = scanner.nextInt();
-
-        selectedProducts.add(PRODUCTOS.get(product));
+        Customer customer = new Customer(customer_name, customer_address);
 
         Random random = new Random();
-        int index = random.nextInt(REPARTIDORES.size());
+        int index = random.nextInt(DELIVERYMEN.size());
 
-        Pedido order = new Pedido(cliente, selectedProducts, REPARTIDORES.get(index));
+        DELIVERYMEN.get(index).setAvailable(false);
 
-        this.orders.add(order);
+        do {
+            System.out.println("Select a product: ");
+            printProductOptions();
+            int productID = scanner.nextInt();
 
+            selectedProducts.add(PRODUCTS.get(productID - 1));
+
+            Order order = new Order(customer, selectedProducts, DELIVERYMEN.get(index));
+
+            this.orders.add(order);
+
+            System.out.println("Product added");
+
+            System.out.println("Do you want to add another product? (1. Add another / 2. Return)");
+            int option = scanner.nextInt();
+            addOther = (option == 1);
+
+            scanner.nextLine();
+
+        } while (addOther);
+
+        System.out.println("Order created");
     }
 
     private void listPendingOrder() {
-
+        orders.forEach(order -> {
+            if(!order.getDelivered()){
+                System.out.println(order);
+            }
+        });
     }
 }
