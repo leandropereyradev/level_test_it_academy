@@ -1,9 +1,10 @@
 public class Deliveryman {
-    private String name;
+    private final String NAME;
+    private DeliveryMethod method;
     private boolean available = true;
 
     public Deliveryman(String name) {
-        this.name = name;
+        NAME = name;
     }
 
     public boolean isAvailable() {
@@ -14,8 +15,13 @@ public class Deliveryman {
         this.available = available;
     }
 
+    public void setMethod(DeliveryMethod method) {
+        this.method = method;
+    }
+
     @Override
     public String toString() {
-        return "name: " + name;
+        return "\n\tDelivery name: " + NAME +
+                "\n\tDelivery method: " + method.getMETHOD();
     }
 }

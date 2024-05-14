@@ -1,15 +1,15 @@
 public class Customer {
-    private String name;
-    private String address;
+    private final String NAME;
+    private final String ADDRESS;
 
     public Customer(String name, String address) {
-        this.name = name;
-        this.address = address;
+        NAME = name;
+        ADDRESS = address;
     }
 
     @Override
     public String toString() {
-        return "Name: " + name + '\n' +
-                "Address: " + address;
+        return "Name: " + NAME + '\n' +
+                "\tAddress: " + ADDRESS;
     }
 }

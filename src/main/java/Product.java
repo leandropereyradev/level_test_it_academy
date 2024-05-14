@@ -1,23 +1,23 @@
 public class Product {
 
-    private int ID;
-    private String product;
-    private double price;
-    private String gift;
+    private final int ID;
+    private final String PRODUCT;
+    private final double PRICE;
+    private final String GIFT;
 
     public Product(int id, String product, double price, String gift) {
-        this.ID = id;
-        this.product = product;
-        this.price = price;
-        this.gift = gift;
+        ID = id;
+        PRODUCT = product;
+        PRICE = price;
+        GIFT = gift;
     }
 
     public String getProduct(){
-        return this.product;
+        return PRODUCT;
     }
 
     public double getPrice() {
-        return this.price;
+        return PRICE;
     }
 
     public int getID(){
@@ -26,8 +26,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product: " + product +
-                "\nPrice: " + price +
-                "\nGift: " + gift;
+        return "\n\t\tProduct: " + PRODUCT +
+                "\n\t\tPrice: " + PRICE + "€" +
+                "\n\t\tGift: " + GIFT + "\n\t";
     }
 }

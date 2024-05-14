@@ -1,21 +1,33 @@
 import java.util.List;
 
 public class Order {
-    private int ID;
-    private Customer customer;
-    private List<Product> products;
-    private Deliveryman deliveryman;
+    private static int lastAssignedID;
+    private final int ID;
+    private final Customer CUSTOMER;
+    private final List<Product> PRODUCTS;
+    private final Deliveryman DELIVERYMAN;
     private boolean delivered;
-    private double total_price;
+    private final double SUBTOTAL;
+    private final double TOTAL_PRICE;
 
-    public Order(Customer customer, List<Product> products, Deliveryman deliveryman) {
-        this.ID ++;
-        this.customer = customer;
-        this.products = products;
-        this.deliveryman = deliveryman;
+    public Order(
+            Customer customer,
+            List<Product> products,
+            Deliveryman deliveryman,
+            double subtotal,
+            double total_price
+    ) {
+        lastAssignedID++;
+        ID = lastAssignedID;
+
+        CUSTOMER = customer;
+        PRODUCTS = products;
+        DELIVERYMAN = deliveryman;
+        SUBTOTAL = subtotal;
+        TOTAL_PRICE = total_price;
     }
 
-    public boolean getDelivered() {
+    public boolean getDeliveryStatus() {
         return delivered;
     }
 
@@ -27,14 +39,19 @@ public class Order {
         return ID;
     }
 
+    public Deliveryman getDELIVERYMAN() {
+        return DELIVERYMAN;
+    }
+
     @Override
     public String toString() {
-        return "Order: " +
-                "\n\t" + customer +
-                "\n\t" + products +
-                "\n\t" + deliveryman +
-                ", delivered=" + delivered +
-                ", total_price=" + total_price +
-                '}';
+        return "\nOrder # " + ID + ": " +
+                "\n\t" + CUSTOMER + "\n" +
+                "\n\tProducts: " + PRODUCTS +
+                "\n\t" + DELIVERYMAN +
+                "\n\tDelivered: " + (delivered ? "delivered" : "undelivered") +
+                "\n\n\tSubtotal: " + String.format("%.2f", SUBTOTAL) + "€" +
+                "\n\tDelivery cost: " + String.format("%.2f", TOTAL_PRICE - SUBTOTAL) + "€" +
+                "\n\n\tTotal price: " + String.format("%.2f", TOTAL_PRICE) + "€";
     }
 }

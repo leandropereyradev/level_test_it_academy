@@ -1,8 +1,8 @@
 public enum ProductType {
     PIZZA("Pizza", 1, 7.9, "Pin"),
     BURRITO("Burrito", 2, 6.5, "Gorra"),
-    KEBAB("Kebab", 3, 4.5, ""),
-    HAMBURGUER("Hamburguesa", 4, 8.9, "");
+    KEBAB("Kebab", 3, 4.5, "Not included"),
+    HAMBURGER("Hamburger", 4, 8.9, "Not included");
 
     private final String TYPE;
     private final int INDEX;
