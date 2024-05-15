@@ -1,3 +1,5 @@
+package store.model.delivery;
+
 public class Deliveryman {
     private final String NAME;
     private DeliveryMethod method;

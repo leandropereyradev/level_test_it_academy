@@ -1,3 +1,5 @@
+package store.model.delivery;
+
 public enum DeliveryMethod {
     MOTORCYCLE(1, "Motorcycle", 1.02, "2%"),
     BICYCLE(2, "Bicycle", 1.01, "1%"),

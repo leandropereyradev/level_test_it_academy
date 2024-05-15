@@ -1,3 +1,5 @@
+package store.model.product;
+
 public class Product {
 
     private final int ID;

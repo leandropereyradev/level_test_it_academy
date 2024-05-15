@@ -1,3 +1,5 @@
+package store.model.customer;
+
 public class Customer {
     private final String NAME;
     private final String ADDRESS;

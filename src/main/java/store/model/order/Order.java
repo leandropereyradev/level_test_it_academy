@@ -1,3 +1,9 @@
+package store.model.order;
+
+import store.model.product.Product;
+import store.model.customer.Customer;
+import store.model.delivery.Deliveryman;
+
 import java.util.List;
 
 public class Order {

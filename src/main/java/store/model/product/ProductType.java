@@ -1,3 +1,5 @@
+package store.model.product;
+
 public enum ProductType {
     PIZZA("Pizza", 1, 7.9, "Pin"),
     BURRITO("Burrito", 2, 6.5, "Gorra"),
