@@ -1,6 +1,7 @@
 package store.app;
 
 import store.exception.NoValidOptionException;
+import store.exception.UnavailableDeliverymanException;
 import store.menu.*;
 import store.model.delivery.*;
 import store.model.order.*;
@@ -69,7 +70,7 @@ public class App {
                 default -> throw new NoValidOptionException("Invalid option. Please try again.");
             }
 
-        } catch (NoValidOptionException e) {
+        } catch (NoValidOptionException | UnavailableDeliverymanException e) {
             System.out.println(e.getMessage());
         }
 

@@ -1,6 +1,7 @@
 package store.services;
 
 import store.exception.NoValidOptionException;
+import store.exception.UnavailableDeliverymanException;
 import store.menu.OrderMenu;
 import store.menu.ProductMenu;
 import store.model.customer.Customer;
@@ -21,16 +22,14 @@ public class AddOrderService {
             List<Deliveryman> deliverymen,
             List<Product> products,
             List<Order> orders
-    ) {
+    ) throws UnavailableDeliverymanException {
         boolean addOther;
         DeliveryMethod deliveryMethodSelected = null;
         boolean isDeliveryMethodSelected = false;
         boolean productSelected = false;
 
-        if (deliverymen.stream().noneMatch(Deliveryman::isAvailable)) {
-            System.out.println("There are no delivery drivers available.");
-            return;
-        }
+        if (deliverymen.stream().noneMatch(Deliveryman::isAvailable))
+            throw new UnavailableDeliverymanException("There are no delivery drivers available.");
 
         List<Product> selectedProducts = new ArrayList<>();
 
@@ -73,7 +72,7 @@ public class AddOrderService {
 
                     productSelected = true;
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Please enter a valid order number: ");
+                    System.out.println("Please enter a valid product: ");
                 }
             }
 
